@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Точное время</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #0f172a; /* Темный глубокий фон */
+            color: white;
+            overflow: hidden;
+        }
+
+        .container { 
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 50px 80px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .label {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-bottom: 10px;
+        }
+
+        .clock { 
+            font-size: 6rem; 
+            font-weight: 800; 
+            margin: 10px 0;
+            font-variant-numeric: tabular-nums; /* Чтобы цифры не "прыгали" */
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-back { 
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none; 
+            color: rgba(255, 255, 255, 0.6); 
+            font-size: 0.9rem;
+            transition: 0.3s;
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn { 
+            display: block; 
+            width: 220px; 
+            padding: 15px; 
+            margin: 15px auto;
+            text-decoration: none; 
+            color: white; 
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px; 
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover { 
+            background: white; 
+            color: #1e3c72;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="label">Текущее системное время</div>
+        <div id="clock" class="clock">{{.Time_now}}</div>
+        
+        <a href="/" class="btn-back">← Назад в меню</a>
+    </div>
+
+    <script>
+        setInterval(() => {
+            window.location.reload();
+        }, 1500);
+    </script>
+</body>
+</html>
