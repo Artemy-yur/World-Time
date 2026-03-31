@@ -101,10 +101,43 @@
             50% { opacity: 0.4; }
             100% { opacity: 1; }
         }
-        .btn-back:hover { 
-            color: white;
+        .btn-back { 
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none; 
+            color: rgba(255, 255, 255, 0.6); 
+            font-size: 0.9rem;
+            transition: 0.3s;
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn { 
+            display: block; 
+            width: 220px; 
+            padding: 15px; 
+            margin: 15px auto;
+            text-decoration: none; 
+            color: white; 
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px; 
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover { 
+            background: white; 
+            color: #1e3c72;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -123,7 +156,7 @@
         </div>
         {{end}}
     </div>
-    <a href="/" class="btn-back">← Назад в меню</a>
+    
     <script>
         function updateClocks() {
             const now = new Date();
@@ -151,6 +184,6 @@
         document.addEventListener('DOMContentLoaded', updateClocks);
     </script>
 
-
+    <a href="/" class="btn-back">← Назад в меню</a>
 </body>
 </html>

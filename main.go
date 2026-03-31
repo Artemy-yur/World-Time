@@ -10,6 +10,7 @@ import (
 func main() {
     http.HandleFunc("/time_now", service.Times)
     http.HandleFunc("/city_time", service.Local)
+    http.HandleFunc("/weather",service.GetWeather)
     
 
     http.HandleFunc("/", service.Start)
