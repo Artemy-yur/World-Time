@@ -6,11 +6,19 @@ import (
 	"io"
 	"net/http"
 	"html/template"
+	"os"
 )
 
-const KEY string = "API"
-const API string = "https://api.openweathermap.org/data/2.5/weather/?q=moscow&appid=%s&units=metric&lang=ru"
 
+
+type Config struct {
+	APIKEY      string `json:"api_key"`
+	APIURL      string `json:"api_url"`
+	DEFAULTCITY string `json:"default_city"`
+	UNITS       string `json:"units"` 
+	LANG        string `json:"lang"`     
+}
+var config Config
 type WeatherResponse struct {
 	Name string `json:"name"`
 	Main struct {
@@ -22,11 +30,34 @@ type WeatherResponse struct {
 	} `json:"weather"`
 }
 
-func GetWeather(w http.ResponseWriter, r *http.Request) {
+func init(){
+	file, err := os.Open("config.json")
+	if err != nil{
+		fmt.Println("Не удалось загрузить конфигурацию")
+	}
 
-	fullapi := fmt.Sprintf(API,KEY)
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+
+	if err := decoder.Decode(&config); err != nil {
+		fmt.Println("Ошибка парсинга конфигурации")
+	}
+
+}
+
+
+func GetWeather(w http.ResponseWriter, r *http.Request) {
+	fullapi := fmt.Sprintf("%s?q=%s&appid=%s&units=%s&lang=%s", 
+		config.APIURL, 
+		config.DEFAULTCITY, 
+		config.APIKEY, 
+		config.UNITS, 
+		config.LANG)
 
 	result, err := http.Get(fullapi)
+
+
 	if err != nil {
 		http.Error(w, "Ошибка запроса", http.StatusInternalServerError)
 		return
@@ -40,6 +71,7 @@ func GetWeather(w http.ResponseWriter, r *http.Request) {
 	
 	tmpl, err := template.ParseFiles("services/html/weather.html")
 	if err != nil {
+		 fmt.Printf("Ошибка шаблона: %v\n", err)
 		http.Error(w, "Ошибка загрузки времени", 500)
 		return
 	}
@@ -50,8 +82,5 @@ func GetWeather(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-
-
 	tmpl.Execute(w, data)
-
 }

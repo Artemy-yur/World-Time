@@ -1,0 +1,7 @@
+{
+    "api_key": "API",
+    "api_url": "https://api.openweathermap.org/data/2.5/weather/",
+    "default_city": "moscow",
+    "units": "metric",
+    "lang": "ru"
+}
