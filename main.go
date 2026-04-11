@@ -3,18 +3,21 @@ package main
 import (
 	"golen/services"
 	"log"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
-    http.HandleFunc("/time_now", service.Times)
-    http.HandleFunc("/city_time", service.Local)
-    http.HandleFunc("/weather",service.GetWeather)
-    
+    //gin.SetMode(gin.ReleaseMode)
 
-    http.HandleFunc("/", service.Start)
+    r := gin.Default()
+
+    r.Any("/time_now", gin.WrapF(service.Times))
+    r.Any("/city_time", gin.WrapF(service.Local))
+    r.Any("/weather",gin.WrapF(service.GetWeather))
+
+    r.Any("/",gin.WrapF(service.Start))
+
 
     log.Println("Сервер: http://localhost:4040/")
-    log.Fatal(http.ListenAndServe(":4040", nil))
+    r.Run(":4040")
 }

@@ -18,6 +18,8 @@ type Config struct {
 	UNITS       string `json:"units"` 
 	LANG        string `json:"lang"`     
 }
+
+
 var config Config
 type WeatherResponse struct {
 	Name string `json:"name"`
